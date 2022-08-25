@@ -14,25 +14,25 @@ int main(int argc, char **argv){
 
 VideoCapture cap;
 Mat Matvideo;
-//cap.open(0);
+cap.open(0,cv::CAP_V4L2);
 
-//             //read video frame from camera and show in windows
-
-//             cap.read(Matvideo);
-Matvideo = imread("/home/hoangtuan/Pictures/anh1.png");
-             sensor_msgs::ImagePtr msg = cv_bridge::CvImage(std_msgs::Header(),"bgr8",Matvideo).toImageMsg();
+             //read video frame from camera and show in windows
+while(true){
+             cap.read(Matvideo);
+//Matvideo = imread("/home/hoangtuan/Pictures/anh1.png");
              flip(Matvideo,Matvideo,1);
+             sensor_msgs::ImagePtr msg = cv_bridge::CvImage(std_msgs::Header(),"bgr8",Matvideo).toImageMsg();
+
              imshow("VideoCapture", Matvideo);
              pub.publish(msg);
              ros::spinOnce();
-//             char c=(char)waitKey(0);
-//                if(c==27)
-//                  break;
-             waitKey(0);
+             char c=(char)waitKey(33);
+                if(c==27)
+                  break;
 
 
 
-
+}
 
      return 0;
 
